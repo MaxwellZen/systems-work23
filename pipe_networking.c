@@ -27,7 +27,6 @@ int server_connect(int from_client) {
     struct sockaddr_storage client_address;
     sock_size = sizeof(client_address);
     client_socket = accept(from_client, (struct sockaddr *)&client_address, &sock_size);
-    printf("client_socket: %d\n", client_socket);
 
 	return client_socket;
 }
@@ -39,17 +38,15 @@ int client_handshake() {
     hints->ai_family = AF_INET;
     hints->ai_socktype = SOCK_STREAM; //TCP socket
     hints->ai_flags = AI_PASSIVE; //only needed on server
-    getaddrinfo("149.89.150.128", "9845", hints, &results);  //Server sets node to NULL
+    getaddrinfo("127.0.0.1", "9845", hints, &results);  //Server sets node to NULL
 
     //create socket
     int sd = socket(results->ai_family, results->ai_socktype, results->ai_protocol);
-    printf("sd: %d\n", sd);
 
     connect(sd, results->ai_addr, results->ai_addrlen);
 
     free(hints);
     freeaddrinfo(results);
-    printf("Connection: %d\n", sd);
 
     return sd;
 }

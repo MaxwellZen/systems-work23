@@ -23,8 +23,7 @@ int main() {
 
     while (1) {
         client = server_connect(listener);
-        if (client==-1) continue;
-        printf("Connection: %d\n", client);
+        printf("Connection established\n");
         f = fork();
         if (f) {
             close(client);
